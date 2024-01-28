@@ -13,17 +13,23 @@ public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyH;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(GamePanel gamePanel, KeyHandler keyH) {
         this.gamePanel = gamePanel;
         this.keyH = keyH;
+
+        screenX = gamePanel.screenWidth / 2 - gamePanel.tileSize / 2;
+        screenY = gamePanel.screenHeight / 2 - gamePanel.tileSize / 2;
 
         setDefautValues();
         getPlayerImage();
     }
 
     public void setDefautValues() {
-        x = 100;
-        y = 100;
+        worldX = gamePanel.tileSize * 2;
+        worldY = gamePanel.tileSize * 7;
         speed = 4;
         state = "right";
     }
@@ -55,18 +61,18 @@ public class Player extends Entity{
 
         if (keyH.upPressed) {
             //state = "jump";
-            y -= speed;
+            worldY -= speed;
         }
         if (keyH.downPressed) {
-            y += speed;
+            worldY += speed;
         }
         if (keyH.leftPressed) {
             state = "left";
-            x -= speed;
+            worldX -= speed;
         }
         if (keyH.rightPressed) {
             state = "right";
-            x += speed;
+            worldX += speed;
         }
 
         
@@ -96,6 +102,6 @@ public class Player extends Entity{
             }
         }
 
-        g2.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 }
