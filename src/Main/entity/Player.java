@@ -1,6 +1,7 @@
 package Main.entity;
 
 import java.io.IOException;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
@@ -23,6 +24,9 @@ public class Player extends Entity{
         screenX = gamePanel.screenWidth / 2 - gamePanel.tileSize / 2;
         screenY = gamePanel.screenHeight / 2 - gamePanel.tileSize / 2;
 
+        int pixelValue = gamePanel.tileSize / 16;
+        solidArea = new Rectangle(pixelValue, pixelValue , gamePanel.tileSize - pixelValue*2, gamePanel.tileSize - pixelValue*2);
+
         setDefautValues();
         getPlayerImage();
     }
@@ -30,8 +34,11 @@ public class Player extends Entity{
     public void setDefautValues() {
         worldX = gamePanel.tileSize * 2;
         worldY = gamePanel.tileSize * 7;
-        speed = 4;
+        speedX = 0; speedY = 0;
+        maxSpeed = 5;
+        acceleration = 1;
         state = "right";
+        lastState = "right";
     }
     public void getPlayerImage() {
         
@@ -46,36 +53,24 @@ public class Player extends Entity{
     }
 
     public void update() {
+        // gravity();
 
         if(keyH.upPressed || keyH.leftPressed || keyH.rightPressed || keyH.downPressed){
-            spriteCounter++;
-            if (spriteCounter >= 15) {
-                spriteCounter = 0;
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else {
-                    spriteNum = 1;
-                }
+            
+            somethingIsPressed();
+
+        }else{
+            if(speedX > 0){
+                speedX -= acceleration;
+            }else if(speedX < 0){
+                speedX += acceleration;
             }
         }
 
-        if (keyH.upPressed) {
-            //state = "jump";
-            worldY -= speed;
+        if(!gamePanel.cCheker.checkTile(this)){
+            worldX += speedX;
+            worldY += speedY;
         }
-        if (keyH.downPressed) {
-            worldY += speed;
-        }
-        if (keyH.leftPressed) {
-            state = "left";
-            worldX -= speed;
-        }
-        if (keyH.rightPressed) {
-            state = "right";
-            worldX += speed;
-        }
-
-        
     }
 
     public void draw(java.awt.Graphics2D g2) {
@@ -83,7 +78,7 @@ public class Player extends Entity{
         BufferedImage image = null;
 
         if(spriteNum == 1){
-            switch (state) {
+            switch (lastState) {
                 case "right":
                     image = rigth1;
                     break;
@@ -92,7 +87,7 @@ public class Player extends Entity{
                     break;
             }
         }else if(spriteNum == 2){
-            switch (state) {
+            switch (lastState) {
                 case "right":
                     image = rigth2;
                     break;
@@ -103,5 +98,50 @@ public class Player extends Entity{
         }
 
         g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+    }
+
+    void somethingIsPressed() {
+
+        if (keyH.upPressed) {
+            state = "jump";
+        }
+        if (keyH.downPressed) {
+        }
+        if (keyH.leftPressed) {
+            state = "left";
+            lastState = "left";
+            if(speedX > maxSpeed * -1){
+                speedX -= acceleration;
+            }
+        }
+        if (keyH.rightPressed) {
+            state = "right";
+            lastState = "right";
+            if (speedX < maxSpeed) {
+                speedX += acceleration;
+                
+            }
+        }
+
+        // CHECK TILE COLLISION
+        // isSolid = false;
+        //gamePanel.cCheker.checkTile(this);
+        
+
+        spriteCounter++;
+        if (spriteCounter >= 15) {
+            spriteCounter = 0;
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            } else {
+                spriteNum = 1;
+            }
+        }
+    }
+
+    void gravity() {
+        if(speedY < 10){
+            speedY += 1;
+        }
     }
 }
