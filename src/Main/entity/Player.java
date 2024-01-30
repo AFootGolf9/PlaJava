@@ -25,7 +25,7 @@ public class Player extends Entity{
         screenY = gamePanel.screenHeight / 2 - gamePanel.tileSize / 2;
 
         int pixelValue = gamePanel.tileSize / 16;
-        solidArea = new Rectangle(pixelValue, pixelValue , gamePanel.tileSize - pixelValue*2, gamePanel.tileSize - pixelValue*2);
+        solidArea = new Rectangle(pixelValue, pixelValue , gamePanel.tileSize - pixelValue*2, gamePanel.tileSize - pixelValue*4);
 
         setDefautValues();
         getPlayerImage();
@@ -53,24 +53,35 @@ public class Player extends Entity{
     }
 
     public void update() {
-        // gravity();
+        gravity();
 
         if(keyH.upPressed || keyH.leftPressed || keyH.rightPressed || keyH.downPressed){
             
             somethingIsPressed();
 
         }else{
-            if(speedX > 0){
-                speedX -= acceleration;
-            }else if(speedX < 0){
-                speedX += acceleration;
-            }
+            
         }
 
-        if(!gamePanel.cCheker.checkTile(this)){
-            worldX += speedX;
-            worldY += speedY;
+        if(speedX > 0){
+            speedX -= acceleration;
+        }else if(speedX < 0){
+            speedX += acceleration;
         }
+
+        if(!gamePanel.cCheker.checkTileX(this)){
+            worldX += speedX;
+        }else{
+            speedX = 0;
+        }
+
+        if (!gamePanel.cCheker.checkTileY(this)) {
+            worldY += speedY;
+        }else{
+            speedY = 0;
+        }
+
+        
     }
 
     public void draw(java.awt.Graphics2D g2) {
@@ -103,7 +114,9 @@ public class Player extends Entity{
     void somethingIsPressed() {
 
         if (keyH.upPressed) {
-            state = "jump";
+            if(gamePanel.cCheker.checkJumpX(this)){
+                jump();
+            }
         }
         if (keyH.downPressed) {
         }
@@ -111,22 +124,17 @@ public class Player extends Entity{
             state = "left";
             lastState = "left";
             if(speedX > maxSpeed * -1){
-                speedX -= acceleration;
+                speedX -= acceleration*2;
             }
         }
         if (keyH.rightPressed) {
             state = "right";
             lastState = "right";
             if (speedX < maxSpeed) {
-                speedX += acceleration;
+                speedX += acceleration*2;
                 
             }
-        }
-
-        // CHECK TILE COLLISION
-        // isSolid = false;
-        //gamePanel.cCheker.checkTile(this);
-        
+        }        
 
         spriteCounter++;
         if (spriteCounter >= 15) {
@@ -143,5 +151,9 @@ public class Player extends Entity{
         if(speedY < 10){
             speedY += 1;
         }
+    }
+
+    void jump() {
+        speedY = -15;
     }
 }
