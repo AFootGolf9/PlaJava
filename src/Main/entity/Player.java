@@ -14,8 +14,11 @@ public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyH;
 
-    public final int screenX;
-    public final int screenY;
+    public int screenX;
+    public int screenY;
+
+    public int centerX;
+    public int centerY;
 
     public Player(GamePanel gamePanel, KeyHandler keyH) {
         this.gamePanel = gamePanel;
@@ -29,6 +32,9 @@ public class Player extends Entity{
 
         setDefautValues();
         getPlayerImage();
+
+        centerX = screenX;
+        centerY = screenY;
     }
 
     public void setDefautValues() {
@@ -71,12 +77,22 @@ public class Player extends Entity{
 
         if(!gamePanel.cCheker.checkTileX(this)){
             worldX += speedX;
+            if(screenX + speedX < gamePanel.screenWidth - gamePanel.tileSize * 4 && screenX + speedX > gamePanel.tileSize * 4){
+                screenX += speedX;
+            }else{
+                centerX += speedX;
+            }
         }else{
             speedX = 0;
         }
 
         if (!gamePanel.cCheker.checkTileY(this)) {
             worldY += speedY;
+            if(screenY + speedY < gamePanel.screenHeight - gamePanel.tileSize * 3 && screenY + speedY > gamePanel.tileSize * 3){
+                screenY += speedY;
+            }else{
+                centerY += speedY;
+            }
         }else{
             speedY = 0;
         }
