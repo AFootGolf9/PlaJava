@@ -32,8 +32,12 @@ public class GamePanel extends JPanel implements Runnable{
 
     TileManager tileManager = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
-    Thread gameThread;
+    Sound sound = new Sound();
+    
     public CollisionCheker cCheker = new CollisionCheker(this);
+    Thread gameThread;
+
+    // Entities
     public Player player = new Player(this, keyH);
 
     public GamePanel() {
@@ -42,6 +46,11 @@ public class GamePanel extends JPanel implements Runnable{
         this.setBackground(Color.BLACK);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        // this.setupGame();
+    }
+
+    public void setupGame() {
+        playMusic(0);
     }
 
     public void startGameThread() {
@@ -95,5 +104,20 @@ public class GamePanel extends JPanel implements Runnable{
         player.draw(g2);
 
         g2.dispose();
+    }
+
+    public void playMusic(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+
+    public void stopMusic(){
+        sound.stop();
+    }
+
+    public void playSE(int i){
+        sound.setFile(i);
+        sound.play();
     }
 }
