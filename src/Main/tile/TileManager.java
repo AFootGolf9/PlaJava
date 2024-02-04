@@ -31,15 +31,19 @@ public class TileManager {
         try{
             tiles[0] = new Tile();
             tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/Blocks/Sky.png"));
-            tiles[0].isSolid = false;
+            tiles[0].isSolid = true;
 
             tiles[1] = new Tile();
-            tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/Blocks/Grass.png"));
-            tiles[1].isSolid = true;
+            tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/Blocks/Sky.png"));
+            tiles[1].isSolid = false;
 
             tiles[2] = new Tile();
-            tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/Blocks/Dirt.png"));
+            tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/Blocks/Grass.png"));
             tiles[2].isSolid = true;
+
+            tiles[3] = new Tile();
+            tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/Blocks/Dirt.png"));
+            tiles[3].isSolid = true;
 
         }catch(IOException e){
             e.printStackTrace();
