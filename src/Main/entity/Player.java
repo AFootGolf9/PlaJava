@@ -41,7 +41,7 @@ public class Player extends Entity{
         worldX = gamePanel.tileSize * 2;
         worldY = gamePanel.tileSize * 7;
         speedX = 0; speedY = 0;
-        maxSpeed = 5;
+        maxSpeed = gamePanel.tileSize / 12;
         acceleration = 1;
         state = "right";
         lastState = "right";
@@ -80,7 +80,7 @@ public class Player extends Entity{
             if(screenX + speedX < gamePanel.screenWidth - gamePanel.tileSize * 4 && screenX + speedX > gamePanel.tileSize * 4){
                 screenX += speedX;
             }else{
-                centerX += speedX;
+                //centerX += speedX;
             }
         }else{
             speedX = 0;
@@ -91,7 +91,10 @@ public class Player extends Entity{
             if(screenY + speedY < gamePanel.screenHeight - gamePanel.tileSize * 3 && screenY + speedY > gamePanel.tileSize * 3){
                 screenY += speedY;
             }else{
-                centerY += speedY;
+                if(true){
+
+                }
+                //centerY += speedY;
             }
         }else{
             speedY = 0;
@@ -139,14 +142,14 @@ public class Player extends Entity{
         if (keyH.leftPressed) {
             state = "left";
             lastState = "left";
-            if(speedX > maxSpeed * -1){
+            if(speedX >= maxSpeed * -1){
                 speedX -= acceleration*2;
             }
         }
         if (keyH.rightPressed) {
             state = "right";
             lastState = "right";
-            if (speedX < maxSpeed) {
+            if (speedX <= maxSpeed) {
                 speedX += acceleration*2;
                 
             }
@@ -164,12 +167,12 @@ public class Player extends Entity{
     }
 
     void gravity() {
-        if(speedY < 10){
-            speedY += 1;
+        if(speedY < gamePanel.tileSize / 4){
+            speedY += 1 * (gamePanel.scale / 2);
         }
     }
 
     void jump() {
-        speedY = -15;
+        speedY = gamePanel.tileSize / -3;
     }
 }

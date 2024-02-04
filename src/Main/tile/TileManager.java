@@ -83,7 +83,7 @@ public class TileManager {
 
         int worldCol = 0;
         int worldRow = 0;
-
+    
         while(worldCol < gamePanel.maxWorldCol && worldRow < gamePanel.maxWorldRow){
 
             int tileNum = mapTileNum[worldCol][worldRow];
