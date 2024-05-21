@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,8 +6,9 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import Main.entity.Player;
-import Main.tile.TileManager;
+import main.entity.Player;
+import main.object.ObjectManager;
+import main.tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
     
@@ -31,6 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
     int FPS = 60;
 
     TileManager tileManager = new TileManager(this);
+    ObjectManager objectManager = new ObjectManager(this);
     KeyHandler keyH = new KeyHandler();
     Sound sound = new Sound();
     
@@ -101,6 +103,7 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D) g;
 
         tileManager.draw(g2);
+        objectManager.draw(g2);
         player.draw(g2);
 
         g2.dispose();

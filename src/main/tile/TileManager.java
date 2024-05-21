@@ -1,4 +1,4 @@
-package Main.tile;
+package main.tile;
 
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
-import Main.GamePanel;
+import main.GamePanel;
 
 public class TileManager {
     
@@ -23,7 +23,7 @@ public class TileManager {
         mapTileNum = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
 
         getTileImage();
-        loadMap("/maps/map.txt");
+        loadMap("/maps/mapB.txt");
     }
 
     public void getTileImage(){
