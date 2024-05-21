@@ -45,6 +45,7 @@ public class Player extends Entity{
         acceleration = 1;
         state = "right";
         lastState = "right";
+        lives = 3;
     }
     public void getPlayerImage() {
         
@@ -100,10 +101,12 @@ public class Player extends Entity{
             speedY = 0;
         }
 
+        gamePanel.cCheker.checkObject(this);
         
     }
 
     public void draw(java.awt.Graphics2D g2) {
+        System.out.println(lives);
         
         BufferedImage image = null;
 

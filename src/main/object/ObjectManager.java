@@ -2,11 +2,8 @@ package main.object;
 
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import javax.imageio.ImageIO;
 
 import main.GamePanel;
 
@@ -26,14 +23,9 @@ public class ObjectManager {
     }
 
     public void getTileImage(){
-
-        try{
-            objects[0] = new Object();
-            objects[0].image = ImageIO.read(getClass().getResourceAsStream("/Objects/Spike.png"));
-            objects[0].isSolid = true;
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+  
+        objects[0] = new NullObject();
+        objects[1] = new Spike();
     }
 
      public void loadMap(String path){

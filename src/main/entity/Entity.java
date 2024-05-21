@@ -18,4 +18,10 @@ public class Entity {
 
     public Rectangle solidArea;
     public Boolean isSolid;
+
+    protected int lives;
+
+    public void damageTaken(int damage){
+        lives -= damage;
+    }
 }

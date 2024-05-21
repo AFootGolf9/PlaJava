@@ -108,4 +108,29 @@ public class CollisionCheker {
         return false;
     }
 
+    public void checkObject(Entity entity){
+        
+        int entityLeftWordX = entity.worldX + entity.solidArea.x;
+        int entityRightWordX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
+        int entityTopWordY = entity.worldY + entity.solidArea.y;
+        int entityBottonWordY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
+
+        int entityLeftCol = ((entityLeftWordX + gamePanel.player.speedX) / gamePanel.tileSize);
+        int entityRightCol = ((entityRightWordX + gamePanel.player.speedX) / gamePanel.tileSize);
+        int entityTopRow = ((entityTopWordY + gamePanel.player.speedY) / gamePanel.tileSize);
+        int entityBottonRow = ((entityBottonWordY + gamePanel.player.speedY) / gamePanel.tileSize);
+
+        int objectNum1, objectNum2, objectNum3, objectNum4;
+
+        objectNum1 = gamePanel.objectManager.mapObjectNum[entityLeftCol][entityTopRow];
+        objectNum2 = gamePanel.objectManager.mapObjectNum[entityRightCol][entityTopRow];
+        objectNum3 = gamePanel.objectManager.mapObjectNum[entityLeftCol][entityBottonRow];
+        objectNum4 = gamePanel.objectManager.mapObjectNum[entityRightCol][entityBottonRow];
+
+        gamePanel.objectManager.objects[objectNum1].onColision(gamePanel);
+        gamePanel.objectManager.objects[objectNum2].onColision(gamePanel);
+        gamePanel.objectManager.objects[objectNum3].onColision(gamePanel);
+        gamePanel.objectManager.objects[objectNum4].onColision(gamePanel);
+    }
+
 }
