@@ -66,8 +66,6 @@ public class Player extends Entity{
             
             somethingIsPressed();
 
-        }else{
-            
         }
 
         if(speedX > 0){
@@ -80,8 +78,6 @@ public class Player extends Entity{
             worldX += speedX;
             if(screenX + speedX < gamePanel.screenWidth - gamePanel.tileSize * 4 && screenX + speedX > gamePanel.tileSize * 4){
                 screenX += speedX;
-            }else{
-                //centerX += speedX;
             }
         }else{
             speedX = 0;
@@ -91,11 +87,6 @@ public class Player extends Entity{
             worldY += speedY;
             if(screenY + speedY < gamePanel.screenHeight - gamePanel.tileSize * 3 && screenY + speedY > gamePanel.tileSize * 3){
                 screenY += speedY;
-            }else{
-                if(true){
-
-                }
-                //centerY += speedY;
             }
         }else{
             speedY = 0;
@@ -103,10 +94,10 @@ public class Player extends Entity{
 
         gamePanel.cCheker.checkObject(this);
         
+        invulnerableTime--;
     }
 
     public void draw(java.awt.Graphics2D g2) {
-        System.out.println(lives);
         
         BufferedImage image = null;
 
@@ -177,5 +168,13 @@ public class Player extends Entity{
 
     void jump() {
         speedY = gamePanel.tileSize / -3;
+    }
+
+    @Override
+    public void damageTaken(int damage){
+        super.damageTaken(damage);
+        if(lives <= 0){
+            gamePanel.gameOver();
+        }
     }
 }

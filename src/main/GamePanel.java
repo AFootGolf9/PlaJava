@@ -88,6 +88,8 @@ public class GamePanel extends JPanel implements Runnable{
 
             if(timer >= 1000000000) {
                 System.out.println("FPS: " + drawCount);
+                // temporary measure
+                System.out.println("life: " + player.lives);
                 drawCount = 0;
                 timer = 0;
             }
@@ -122,5 +124,13 @@ public class GamePanel extends JPanel implements Runnable{
     public void playSE(int i){
         sound.setFile(i);
         sound.play();
+    }
+
+    public void gameOver(){
+        stopMusic();
+
+        // temporary measure
+        System.out.println("Game Over");
+        System.exit(0);
     }
 }

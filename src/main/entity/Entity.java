@@ -19,9 +19,13 @@ public class Entity {
     public Rectangle solidArea;
     public Boolean isSolid;
 
-    protected int lives;
+    //temporary measure
+    public int lives;
+    protected int invulnerableTime = 0;
 
     public void damageTaken(int damage){
+        if(invulnerableTime > 0) return;
         lives -= damage;
+        invulnerableTime = 90;
     }
 }
