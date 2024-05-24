@@ -115,10 +115,10 @@ public class CollisionCheker {
         int entityTopWordY = entity.worldY + entity.solidArea.y;
         int entityBottonWordY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
 
-        int entityLeftCol = ((entityLeftWordX + gamePanel.player.speedX) / gamePanel.tileSize);
-        int entityRightCol = ((entityRightWordX + gamePanel.player.speedX) / gamePanel.tileSize);
-        int entityTopRow = ((entityTopWordY + gamePanel.player.speedY) / gamePanel.tileSize);
-        int entityBottonRow = ((entityBottonWordY + gamePanel.player.speedY) / gamePanel.tileSize);
+        int entityLeftCol = ((entityLeftWordX) / gamePanel.tileSize);
+        int entityRightCol = ((entityRightWordX) / gamePanel.tileSize);
+        int entityTopRow = ((entityTopWordY) / gamePanel.tileSize);
+        int entityBottonRow = ((entityBottonWordY) / gamePanel.tileSize);
 
         int objectNum1, objectNum2, objectNum3, objectNum4;
 
