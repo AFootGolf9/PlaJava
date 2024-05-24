@@ -120,7 +120,11 @@ public class Player extends Entity{
                     break;
             }
         }
-
+        if(invulnerableTime > 0){
+            if(invulnerableTime % 10 == 0 || invulnerableTime % 10 == 1 || invulnerableTime % 10 == 2 || invulnerableTime % 10 == 3 || invulnerableTime % 10 == 4){
+                return;
+            }
+        }
         g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 
