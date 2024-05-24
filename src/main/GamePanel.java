@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import main.entity.Player;
+import main.hud.HudManager;
 import main.object.ObjectManager;
 import main.tile.TileManager;
 
@@ -31,16 +32,19 @@ public class GamePanel extends JPanel implements Runnable{
     // FPS
     int FPS = 60;
 
+    KeyHandler keyH = new KeyHandler();
+
+    // Entities
+    public Player player = new Player(this, keyH);
+
     TileManager tileManager = new TileManager(this);
     ObjectManager objectManager = new ObjectManager(this);
-    KeyHandler keyH = new KeyHandler();
+    HudManager hudManager = new HudManager(this);
     Sound sound = new Sound();
     
     public CollisionCheker cCheker = new CollisionCheker(this);
     Thread gameThread;
 
-    // Entities
-    public Player player = new Player(this, keyH);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -107,6 +111,8 @@ public class GamePanel extends JPanel implements Runnable{
         tileManager.draw(g2);
         objectManager.draw(g2);
         player.draw(g2);
+        hudManager.draw(g2);
+
 
         g2.dispose();
     }
